@@ -1,18 +1,24 @@
 #include <iostream>
 #include <windows.h>
+#include <conio.h>
 
 using namespace std;
 
-void setcolor(int ForgC){
-     WORD wColor;
-     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-     CONSOLE_SCREEN_BUFFER_INFO csbi;
-     if (GetConsoleScreenBufferInfo(hStdOut, &csbi)){
-          wColor = (csbi.wAttributes & 0xB0) + (ForgC & 0x0B);
-          //	SetConsoleTextAttributes(hStdOut,wColor);
-          SetConsoleTextAttribute(hStdOut, wColor);
-     }
-}
+// void setcolor(int ForgC){
+//      WORD wColor;
+//      HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//      CONSOLE_SCREEN_BUFFER_INFO csbi;
+//      if (GetConsoleScreenBufferInfo(hStdOut, &csbi)){
+//           wColor = (csbi.wAttributes & 0xB0) + (ForgC & 0x0B);
+//           //SetConsoleTextAttributes(hStdOut,wColor);
+//           SetConsoleTextAttribute(hStdOut, wColor);
+//      }
+// } 
+
+void setcolor(int code){
+     HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
+     SetConsoleTextAttribute(color, code);
+} 
 
 struct KH {
      char hoten[50];
@@ -36,7 +42,7 @@ struct dsthue{
 
 void loaiphong(){
      system("cls");
-     cout << "##### Cac Loai Phong #####\n";
+     cout << "***** Cac Loai Phong *****\n";
      cout << "\n\tI. Phong Standard (STD): ";
      cout << "\n  * Tien mot thang: 1.100.000VND.";
      cout << "\n  * Tien dien: 3000VND/1KWh.";
@@ -63,8 +69,9 @@ int main()
      system("cls");
      do
      {
-          setcolor(15);
-          cout << "######## MENU #########\n";
+          system("cls");
+          setcolor(6);
+          cout << "********* MENU *********\n";
           cout << "\n1. Xem Loai Phong Muon Thue.";
           cout << "\n2. Thue Phong.";
           cout << "\n3. Trang Thai Phong.";
@@ -75,30 +82,33 @@ int main()
           cout << "\nNhap Tuy Chon <1-7>: ";
           cin >> tuychon;
           switch (tuychon){
-          case 1:
-               loaiphong();
-               break;
-          case 2:
+               case 1:
+                    loaiphong();
+                    getch();            //dung mh console sau khi xuat
+                    break;
+               case 2:
+
+                    break;
+               case 3:
 
                break;
-          case 3:
+                    case 4:
 
                break;
-          case 4:
+                    case 5:
 
                break;
-          case 5:
+                    case 6:
 
-               break;
-          case 6:
-
-               break;
-          case 7:
-               cout << "\nCam On Quy Khach!";
-               break;
-          default:
-               cout << "\nNhap Lai Tuy Chon.";
-               break;
+               break; 
+                    case 7:
+                    cout << "\nCam On Quy Khach!";
+                    break;
+               default:
+                    cout << "\nNhap Lai Tuy Chon.";
+                    getch();
+                    break;
           }
      } while (tuychon != 7);
+     getch();
 }
