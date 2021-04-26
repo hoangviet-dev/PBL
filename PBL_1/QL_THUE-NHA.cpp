@@ -67,13 +67,29 @@ void thuephong()
      cout << "\n* Phong Suite <SUT>.";
      cout << "\nChon Loai Phong Muon Thue: ";
      cin >> phong1.loaiphong;
+     cout<<"Nhap STT Phong: ";
+     cin>>phong1.sttp;
      cout << "Nhap Ho Ten: ";
      cin.ignore();
      cin.getline(KH1.hoten, 50);
      cout << "Nhap Dia Chi Sinh Song: ";
      cin.getline(KH1.address, 100);
      cout << "Nhap Ngay Sinh (dd/mm/yyyy): ";
-     cin >> KH1.ngaysinh;
+     cin.getline(KH1.ngaysinh, 30);
+     cout<<"Nhap So Dien Thoai: ";
+     cin.getline(KH1.phone, 20);
+     getch();
+}
+
+void ttphong(){
+     system("cls");
+     cout << "***** Trang Thai Phong *****\n";
+     cout<<"Phong Da Duoc Thue: "<<phong1.sttp;
+     cout<<"\nLoai Phong: "<<phong1.loaiphong;
+     cout<<"\nHo Ten: "<<KH1.hoten;
+     cout << "\nDia Chi Sinh Song: "<<KH1.address;
+     cout << "\nNgay Sinh: "<<KH1.ngaysinh;
+     cout << "\nSo Dien Thoai: "<<KH1.phone;
      getch();
 }
 
@@ -105,7 +121,7 @@ int main()
                thuephong();
                break;
           case 3:
-
+               ttphong();
                break;
           case 4:
 
