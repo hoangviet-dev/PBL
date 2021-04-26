@@ -1,35 +1,52 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include <stdio.h>
 
 using namespace std;
 
-void setcolor(int code){
+// void setcolor(int ForgC){
+//      WORD wColor;
+//      HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//      CONSOLE_SCREEN_BUFFER_INFO csbi;
+//      if (GetConsoleScreenBufferInfo(hStdOut, &csbi)){
+//           wColor = (csbi.wAttributes & 0xB0) + (ForgC & 0x0B);
+//           //SetConsoleTextAttributes(hStdOut,wColor);
+//           SetConsoleTextAttribute(hStdOut, wColor);
+//      }
+// }
+
+void setcolor(int code)
+{
      HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
      SetConsoleTextAttribute(color, code);
-} 
+}
 
-struct KH {
+struct KH
+{
      char hoten[50];
      char address[100];
      char ngaysinh[30];
      char phone[20];
-     char loaiKH[30];          //sinh vien: sv; ho gia dinh: hgd
-     
-};
+     char loaiKH[30]; //sinh vien: sv; ho gia dinh: hgd
 
-struct phong{
-     int sttp;                //so thu tu phong
-     char loaiphong[100];     //STD; SUP; SUT
+} KH1;
 
-};
- 
-struct dsthue{
-     char ngaythue[30];       //ngay KH bat dau thue
+struct phong
+{
+     int sttp;            //so thu tu phong
+     char loaiphong[100]; //STD; SUP; SUT
+
+} phong1;
+
+struct dsthue
+{
+     char ngaythue[30]; //ngay KH bat dau thue
      struct KH;
 };
 
-void loaiphong(){
+void loaiphong()
+{
      system("cls");
      cout << "***** Cac Loai Phong *****\n";
      cout << "\n\tI. Phong Standard (STD): ";
@@ -52,6 +69,25 @@ void loaiphong(){
      cout << "\n  * Tien internet: 30.000VND/1thang. \n";
 }
 
+void thuephong()
+{
+     system("cls");
+     cout << "***** Thue Phong *****\n";
+     cout << "* Phong Standard <STD>.";
+     cout << "\n* Phong Superior <SUP>.";
+     cout << "\n* Phong Suite <SUT>.";
+     cout << "\nChon Loai Phong Muon Thue: ";
+     cin >> phong1.loaiphong;
+     cout << "Nhap Ho Ten: ";
+     cin.ignore();
+     cin.getline(KH1.hoten, 50);
+     cout << "Nhap Dia Chi Sinh Song: ";
+     cin.getline(KH1.address, 100);
+     cout << "Nhap Ngay Sinh (dd/mm/yyyy): ";
+     cin >> KH1.ngaysinh;
+     getch();
+}
+
 int main()
 {
      int tuychon;
@@ -70,33 +106,34 @@ int main()
           cout << "\n7. Exit";
           cout << "\nNhap Tuy Chon <1-7>: ";
           cin >> tuychon;
-          switch (tuychon){
-               case 1:
-                    loaiphong();
-                    getch();            //dung mh console sau khi xuat
-                    break;
-               case 2:
-
-                    break;
-               case 3:
+          switch (tuychon)
+          {
+          case 1:
+               loaiphong();
+               getch(); //dung mh console sau khi xuat
+               break;
+          case 2:
+               thuephong();
+               break;
+          case 3:
 
                break;
-                    case 4:
+          case 4:
 
                break;
-                    case 5:
+          case 5:
 
                break;
-                    case 6:
+          case 6:
 
-               break; 
-                    case 7:
-                    cout << "\nCam On Quy Khach!";
-                    break;
-               default:
-                    cout << "\nNhap Lai Tuy Chon.";
-                    getch();
-                    break;
+               break;
+          case 7:
+               cout << "\nCam On Quy Khach!";
+               break;
+          default:
+               cout << "\nNhap Lai Tuy Chon.";
+               getch();
+               break;
           }
      } while (tuychon != 7);
      getch();
