@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <conio.h>
 #include <stdio.h>
+#include <fstream>
+#include<string>
 
 using namespace std;
 
@@ -31,8 +33,9 @@ struct phong
 struct dsthue
 {
      char ngaythue[30]; //ngay KH bat dau thue
+     char ngaytra[30];
      struct KH;
-};
+}dst1 ;
 
 void loaiphong()
 {
@@ -55,42 +58,93 @@ void loaiphong()
      cout << "\n  * Co ho tro nuoc nong/lanh.";
      cout << "\n  * Dich vu di thang may free.";
      cout << "\n  * Dich vu giat ui giam 10%.";
-     cout << "\n  * Tien internet: 30.000VND/1thang. \n";
+     cout << "\n  * Tien internet: 30.000VND/1thang. ";
+     cout<<"\n\nNHAN PHIM BAT KI DE TIEP TUC!";
+     getch(); //dung mh console sau khi xuat
 }
 
 void thuephong()
 {
      system("cls");
+     thuephong:
+
+     ofstream ghidl;
+     ghidl.open("DL_KH.txt", ios::app);
      cout << "***** Thue Phong *****\n";
-     cout << "* Phong Standard <STD>.";
+     cout << "\n* Phong Standard <STD>.";
      cout << "\n* Phong Superior <SUP>.";
-     cout << "\n* Phong Suite <SUT>.";
-     cout << "\nChon Loai Phong Muon Thue: ";
-     cin >> phong1.loaiphong;
-     cout<<"Nhap STT Phong: ";
-     cin>>phong1.sttp;
-     cout << "Nhap Ho Ten: ";
-     cin.ignore();
-     cin.getline(KH1.hoten, 50);
-     cout << "Nhap Dia Chi Sinh Song: ";
-     cin.getline(KH1.address, 100);
-     cout << "Nhap Ngay Sinh (dd/mm/yyyy): ";
-     cin.getline(KH1.ngaysinh, 30);
-     cout<<"Nhap So Dien Thoai: ";
-     cin.getline(KH1.phone, 20);
-     getch();
+     cout << "\n* Phong Suite <SUT>.\n";
+     char key_val1, key_val2;
+     key_val1 = getch();
+     if (key_val1== 27){ 
+          //neu nhap vao esc thi thoat case thuephong.
+          //getch();
+          //break;
+     }
+     else{
+          cout<<"\nNgay Thue: ";
+          cin>>dst1.ngaythue;
+          ghidl<< dst1.ngaythue<<" \t";
+          cout << "Chon Loai Phong Muon Thue: ";
+          cin >> phong1.loaiphong;
+          ghidl<<phong1.loaiphong<<" \t";
+          cout<<"Nhap STT Phong: ";
+          cin>>phong1.sttp;
+          ghidl << phong1.sttp<< " \t";
+          cout << "Nhap Ho Ten: ";
+          cin.ignore();
+          cin.getline(KH1.hoten, 50);
+          ghidl << KH1.hoten << "\t\t";
+          cout << "Nhap Dia Chi Sinh Song: ";
+          cin.getline(KH1.address, 100);
+          ghidl << KH1.address << " \t";
+          cout << "Nhap Ngay Sinh (dd/mm/yyyy): ";
+          cin.getline(KH1.ngaysinh, 30);
+          ghidl << KH1.ngaysinh << " \t";
+          cout<<"Nhap So Dien Thoai: ";
+          cin.getline(KH1.phone, 20);
+          ghidl << KH1.phone << "\t\n";
+          cout << "\nNHAN ESE DE THOAT HOAC PHIM BAT KI DE TIEP TUC!";
+          key_val2=getch();
+          if (key_val2==27){
+               // nothing
+          }
+          else{
+               system("cls");
+               goto thuephong;               
+          }
+          ghidl.close();
+     }     
 }
 
 void ttphong(){
+     char docdl1[1000];
+     ifstream docdl;
+     docdl.open("DL_KH.txt", ios::in);
      system("cls");
      cout << "***** Trang Thai Phong *****\n";
-     cout<<"Phong Da Duoc Thue: "<<phong1.sttp;
-     cout<<"\nLoai Phong: "<<phong1.loaiphong;
-     cout<<"\nHo Ten: "<<KH1.hoten;
-     cout << "\nDia Chi Sinh Song: "<<KH1.address;
-     cout << "\nNgay Sinh: "<<KH1.ngaysinh;
-     cout << "\nSo Dien Thoai: "<<KH1.phone;
+     //cout<<"\nPhong Da Duoc Thue: ";
+     //cout << "\n----------------------";
+     cout << "\n Ngay Thue. \tLoai Phong. \tSTT Phong. \tHo Ten. \tDia Chi Sinh Song.\t\tNgay Sinh. \tSo Dien Thoai. \n\n";
+     // cout<<"\nLoai Phong: "<<phong1.loaiphong;
+     // cout<<"\nHo Ten: "<<KH1.hoten;
+     // cout << "\nDia Chi Sinh Song: "<<KH1.address;
+     // cout << "\nNgay Sinh: "<<KH1.ngaysinh;
+     // cout << "\nSo Dien Thoai: "<<KH1.phone;
+
+     //doc dl tu file sang chuong trinh
+     while(!docdl.eof()){
+          docdl>>docdl1;
+          cout<<" "<<docdl1<<"     ";
+     }
+     docdl.close();
      getch();
+}
+
+void traphong(){
+     cout<<"Nhap STT Phong Muon Tra: ";
+     
+     
 }
 
 int main()
@@ -102,20 +156,19 @@ int main()
           system("cls");
           setcolor(6);
           cout << "********* MENU *********\n";
-          cout << "\n1. Xem Loai Phong Muon Thue.";
-          cout << "\n2. Thue Phong.";
-          cout << "\n3. Trang Thai Phong.";
-          cout << "\n4. Tra Phong.";
-          cout << "\n5. Danh Sach Khach Hang Thue Phong.";
-          cout << "\n6. Xuat Danh Sach Khach Hang Thue Phong. ";
-          cout << "\n7. Exit";
+          cout << "\n  1. Xem Loai Phong Muon Thue.";
+          cout << "\n  2. Thue Phong.";
+          cout << "\n  3. Trang Thai Phong.";
+          cout << "\n  4. Tra Phong.";
+          cout << "\n  5. Danh Sach Khach Hang Thue Phong.";
+          cout << "\n  6. Xuat Danh Sach Khach Hang Thue Phong. ";
+          cout << "\n  7. Exit";
           cout << "\nNhap Tuy Chon <1-7>: ";
           cin >> tuychon;
           switch (tuychon)
           {
           case 1:
                loaiphong();
-               getch(); //dung mh console sau khi xuat
                break;
           case 2:
                thuephong();
@@ -133,7 +186,7 @@ int main()
 
                break;
           case 7:
-               cout << "\nCam On Quy Khach!";
+               cout << "\nTHANK YOU!";
                break;
           default:
                cout << "\nNhap Lai Tuy Chon.";
