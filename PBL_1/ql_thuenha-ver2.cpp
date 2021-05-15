@@ -26,8 +26,7 @@ void list_book();        //Danh sach KH thue
 int main(){
      int tuychon;
      system("cls");
-     do
-     {
+     do{
           system("cls");
           cout << "********* QUAN LI CHO THUE PHONG TRO *********\n";
           cout << "\n  1. Thong Tin Phong.";
